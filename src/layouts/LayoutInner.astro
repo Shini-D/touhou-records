@@ -1,0 +1,36 @@
+---
+import { ClientRouter } from "astro:transitions";
+import '@fontsource-variable/anybody';
+import '@fontsource-variable/geologica';
+import "@/styles/global.css";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BaseHead from "@/components/BaseHead.astro";
+
+type Props = {
+  title: string;
+  postUrl?: {
+    en?: string;
+    es?: string;
+  };
+  ogImage?: string;
+}
+
+const { title, postUrl={}, ogImage='' } = Astro.props;
+---
+<!doctype html>
+<html lang={Astro.currentLocale}>
+	<head>
+    <BaseHead title={`Touhou Records | ${title}`} opengraph={ogImage} />
+    <ClientRouter />
+	</head>
+	<body class="bg-pearl-200 dark:bg-dark-600 text-dark-100 dark:text-pearl-700 font-sans leading-normal">
+    <Header hasPostUrl={postUrl} />
+    <main class="relative min-h-svh before:w-2.5 before:h-56 lg:before:h-68 before:bg-gradient-to-b before:from-pearl-600 dark:before:from-dark-300 before:from-60% before:to-transparent before:to-60% before:border-r before:border-pearl-600 dark:before:border-dark-300 before:absolute before:top-0 before:right-1 2xl:before:right-[calc((100%_-_var(--breakpoint-2xl))*0.5_+_var(--spacing)*2)] before:-z-10">
+      <div class="w-3/4 lg:w-4/5 h-28 sm:h-40 lg:h-74 absolute top-0 left-0 bg-radial-[ellipse_at_50%_0%] from-[#FF1010] via-[rgba(255,16,16,0.8)] via-5% to-[rgba(249,193,193,0)] dark:to-[rgba(66,30,30,0)] to-70% sm:to-55% lg:to-40% opacity-80 blur-sm pointer-events-none" />
+      <div class="w-3/4 lg:w-4/5 h-28 sm:h-40 lg:h-74 absolute top-0 right-0 bg-radial-[ellipse_at_50%_0%] from-[#FFC710] via-[rgba(255,199,16,0.8)] via-5% to-[rgba(249,242,193,0)] dark:to-[rgba(54,51,31,0)] to-70% sm:to-55% lg:to-40% opacity-80 blur-sm pointer-events-none" />
+      <slot />
+    </main>
+    <Footer />
+	</body>
+</html>

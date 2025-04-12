@@ -1,22 +1,29 @@
+---
+import { ClientRouter } from "astro:transitions";
+import '@fontsource-variable/anybody';
+import '@fontsource-variable/geologica';
+import "@/styles/global.css";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BaseHead from "@/components/BaseHead.astro";
+
+type Props = {
+  hasFooter?: boolean;
+}
+
+const { hasFooter=true } = Astro.props;
+---
 <!doctype html>
-<html lang="en">
+<html lang={Astro.currentLocale}>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<BaseHead />
+    <ClientRouter />
 	</head>
-	<body>
-		<slot />
+	<body class="bg-pearl-200 dark:bg-dark-600 text-dark-100 dark:text-pearl-700 font-sans leading-normal">
+    <Header />
+    <main class="min-h-svh">
+      <slot />
+    </main>
+    {hasFooter && <Footer />}
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

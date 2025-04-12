@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Texts from '@/assets/common.json';
+import BlogCard from '@/components/BlogCard.astro';
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+const posts = await getCollection('posts', (({data}) => {
+  return (
+    data.status === 'published' &&
+    data.language === Astro.currentLocale
+  )
+}));
+---
+
+<div class="max-w-8xl mx-auto px-7 py-32">
+  <h2 class="font-heading font-extrabold leading-tight text-center text-3xl sm:text-5xl text-primary-100 mb-4 lg:mb-6">{texts.blogTitle}</h2>
+  <p class="lg:text-xl text-center">{texts.blogSubtitle}</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12 mt-10 lg:mt-20">
+    {posts.map((post) => (
+      <BlogCard
+        cover={post.data.cover.src}
+        title={post.data.title}
+        date={post.data.publishDate}
+        slug={post.data.slug}
+      />
+    ))}
+  </div>
+</div>

@@ -1,0 +1,29 @@
+---
+type Props = {
+  cover: string;
+  title: string;
+  date: Date;
+  slug: string;
+  classes?: string;
+}
+
+const { cover, title, date, slug, classes='' } = Astro.props
+---
+
+<article class={classes}>
+  <a class="group flex flex-col h-full rounded-lg lg:rounded-2xl overflow-hidden bg-pearl-100 dark:bg-dark-400 drop-shadow-md" href={slug} transition:animate='initial'>
+    <div class="overflow-hidden">
+      <img src={cover} alt={title} class="w-full aspect-video object-cover group-hover:scale-110 transition-transform" transition:name={`${slug}-postCover`} />
+    </div>
+    <div class="p-4 md:px-6 w-full grow">
+      <h1 class="font-bold leading-snug text-lg lg:text-2xl text-night dark:text-light group-hover:text-primary-100 transition-colors">{title}</h1>
+      <date class="block mt-1">
+        {new Date(date).toLocaleDateString(Astro.currentLocale, {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+        })}
+      </date>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutInner from "@/layouts/LayoutInner.astro";
+import BlogPost from '@/sections/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({data}) => data.status === 'published');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<LayoutInner title={post.data.title} postUrl={post.data.translation} ogImage={post.data.cover.src}>
+  <BlogPost post={post} />
+</LayoutInner>

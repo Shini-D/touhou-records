@@ -1,0 +1,167 @@
+---
+import { getCollection, render } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Texts from '@/assets/common.json';
+import BlogCard from '@/components/BlogCard.astro';
+import FontPlus from '@/assets/font_plus.svg';
+import FontMinus from '@/assets/font_minus.svg';
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const allPosts = await getCollection('posts', ({data}) =>
+  data.status === 'published' &&
+  data.language === post.data.language &&
+  data.slug !== post.data.slug
+);
+const relatedPosts = allPosts.slice(0, 3);
+---
+
+<article class="max-w-8xl mx-auto px-7 pt-24 lg:pt-32 pb-10 lg:pb-16">
+  <a class="inline-flex items-center gap-1 py-2 hover:text-primary-100 transition-colors mb-2" href={getRelativeLocaleUrl(Astro.currentLocale as string, '/blog')}>
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M7.03864 10.7371C6.88241 10.5808 6.79465 10.3689 6.79465 10.1479C6.79465 9.92698 6.88241 9.71506 7.03864 9.55878L11.7528 4.84462C11.8297 4.76503 11.9216 4.70154 12.0233 4.65787C12.125 4.61419 12.2343 4.5912 12.345 4.59024C12.4556 4.58928 12.5654 4.61036 12.6678 4.65227C12.7702 4.69417 12.8632 4.75604 12.9415 4.83429C13.0197 4.91253 13.0816 5.00557 13.1235 5.10799C13.1654 5.2104 13.1865 5.32014 13.1855 5.43078C13.1846 5.54143 13.1616 5.65078 13.1179 5.75245C13.0742 5.85412 13.0107 5.94608 12.9311 6.02295L8.80614 10.1479L12.9311 14.273C13.0829 14.4301 13.1669 14.6406 13.165 14.8591C13.1631 15.0776 13.0755 15.2866 12.921 15.4411C12.7665 15.5956 12.5575 15.6833 12.339 15.6852C12.1205 15.6871 11.91 15.6031 11.7528 15.4513L7.03864 10.7371Z" fill="currentColor"/>
+    </svg>
+    {texts.back}
+  </a>
+  <figure>
+    <img src={post.data.cover.src} alt={post.data.title} class="w-full mb-8" transition:name={`${post.data.slug}-postCover`} />
+  </figure>
+  <h1 class="font-heading font-extrabold leading-tight text-center text-3xl md:text-5xl text-primary-100 mb-4 lg:mb-6">{post.data.title}</h1>
+  <date class="block lg:text-xl text-center mb-8">{new Date(post.data.publishDate).toLocaleDateString(Astro.currentLocale, {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  })}</date>
+  <div id="article-content" class="relative max-w-4xl mx-auto prose prose-p:text-[calc(var(--psize)*1px)]">
+    <Content />
+    <div id="font-controls" class="bg-pearl-100/50 dark:bg-dark-400/50 backdrop-blur-sm drop-shadow-md rounded-full inline-flex gap-2 p-2 fixed bottom-7 right-7">
+      <button id="prose-plus" type="button" class="size-10 inline-flex justify-center items-center rounded-full bg-pearl-600 hover:bg-pearl-50 dark:bg-dark-300 dark:hover:bg-dark-200 transition-color cursor-pointer">
+        <FontPlus class="size-6" />
+      </button>
+      <button id="prose-minus" type="button" class="size-10 inline-flex justify-center items-center rounded-full bg-pearl-600 hover:bg-pearl-50 dark:bg-dark-300 dark:hover:bg-dark-200 transition-color cursor-pointer">
+        <FontMinus class="size-6" />
+      </button>
+      <button id="prose-width" type="button" class="size-10 inline-flex justify-center items-center rounded-full bg-pearl-600 hover:bg-pearl-50 dark:bg-dark-300 dark:hover:bg-dark-200 transition-color cursor-pointer">
+        <svg class="size-6" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path id="prose-width-expand" d="M6.58009 10.0042L8.9755 12.3996C9.09913 12.5232 9.16095 12.6675 9.16095 12.8323C9.16095 12.9971 9.09913 13.1414 8.9755 13.265C8.85186 13.3887 8.70494 13.4505 8.53474 13.4505C8.36454 13.4505 8.21783 13.3887 8.0946 13.265L5.6992 10.8851C5.46223 10.6481 5.34375 10.3545 5.34375 10.0042C5.34375 9.65388 5.46223 9.36025 5.6992 9.12328L8.0946 6.72788C8.21824 6.60424 8.36495 6.5449 8.53474 6.54985C8.70453 6.55479 8.85145 6.61929 8.9755 6.74333C9.09954 6.86738 9.16136 7.0143 9.16095 7.18409C9.16053 7.35388 9.09872 7.50059 8.9755 7.62422L6.58009 10.0042ZM13.4199 10.0042L11.04 7.62422C10.9163 7.50059 10.857 7.35635 10.8619 7.19151C10.8669 7.02666 10.9262 6.88242 11.04 6.75879C11.1636 6.63515 11.3103 6.57086 11.4801 6.56592C11.6499 6.56097 11.7968 6.62011 11.9209 6.74333L14.3008 9.12329C14.5378 9.36025 14.6562 9.65388 14.6562 10.0042C14.6562 10.3545 14.5378 10.6481 14.3008 10.8851L11.9208 13.265C11.7972 13.3887 11.6503 13.448 11.4801 13.4431C11.3099 13.4381 11.1632 13.3736 11.04 13.2496C10.9266 13.1259 10.8673 12.9817 10.8619 12.8168C10.8566 12.652 10.9159 12.5078 11.04 12.3841L13.4199 10.0042Z" fill="currentColor"/>
+          <path id="prose-width-shrink" class="hidden" d="M12.0712 10.0042L14.4666 12.3996C14.5903 12.5232 14.6521 12.6675 14.6521 12.8323C14.6521 12.9971 14.5903 13.1414 14.4666 13.265C14.343 13.3887 14.1961 13.4505 14.0259 13.4505C13.8557 13.4505 13.709 13.3887 13.5857 13.265L11.1903 10.8851C10.9534 10.6481 10.8349 10.3545 10.8349 10.0042C10.8349 9.65388 10.9534 9.36025 11.1903 9.12328L13.5857 6.72788C13.7094 6.60424 13.8561 6.5449 14.0259 6.54985C14.1957 6.55479 14.3426 6.61929 14.4666 6.74333C14.5907 6.86738 14.6525 7.0143 14.6521 7.18409C14.6517 7.35388 14.5898 7.50059 14.4666 7.62422L12.0712 10.0042ZM7.90337 10.0042L5.52342 7.62424C5.39979 7.5006 5.34044 7.35636 5.34539 7.19152C5.35033 7.02667 5.40968 6.88243 5.52342 6.7588C5.64705 6.63517 5.79376 6.57088 5.96356 6.56593C6.13335 6.56098 6.28026 6.62012 6.40431 6.74334L8.78426 9.1233C9.02123 9.36026 9.13971 9.65389 9.13971 10.0042C9.13971 10.3545 9.02123 10.6481 8.78426 10.8851L6.40431 13.265C6.28068 13.3887 6.13376 13.448 5.96356 13.4431C5.79335 13.4381 5.64664 13.3736 5.52342 13.2496C5.41009 13.1259 5.35074 12.9817 5.34539 12.8169C5.34003 12.652 5.39937 12.5078 5.52342 12.3841L7.90337 10.0042Z" fill="currentColor"/>
+          <path d="M3.2001 4.96231C2.86873 4.96231 2.6001 5.23094 2.6001 5.56231V14.4377C2.6001 14.7691 2.86873 15.0377 3.2001 15.0377C3.53147 15.0377 3.8001 14.7691 3.8001 14.4377V5.56231C3.8001 5.23094 3.53147 4.96231 3.2001 4.96231Z" fill="currentColor"/>
+          <path d="M16.8 4.96231C16.4686 4.96231 16.2 5.23094 16.2 5.56231V14.4377C16.2 14.7691 16.4686 15.0377 16.8 15.0377C17.1313 15.0377 17.4 14.7691 17.4 14.4377V5.56231C17.4 5.23094 17.1313 4.96231 16.8 4.96231Z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</article>
+
+{relatedPosts.length > 0 && (
+  <section class="max-w-8xl mx-auto px-7">
+    <div class="pb-16 pt-10 lg:pt-16 border-t border-pearl-600 dark:border-dark-300">
+      <h2 class="font-heading font-bold text-2xl lg:text-4xl text-primary-100 mb-5 lg:mb-8 text-center">{texts.relatedNews}</h2>
+      <div class="flex flex-wrap justify-center gap-6">
+        {relatedPosts.map(relatedPost => (
+          <BlogCard
+            title={relatedPost.data.title}
+            date={relatedPost.data.publishDate}
+            cover={relatedPost.data.cover.src}
+            slug={getRelativeLocaleUrl(locale, `blog/${relatedPost.data.slug}`)}
+            classes="w-full sm:w-[calc((100%_-_var(--spacing)*6)/2)] lg:w-[calc((100%_-_var(--spacing)*6*2)/3)]"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const articleContent = document.getElementById('article-content');
+    const fontControls = document.getElementById('font-controls');
+    const prosePlus = document.getElementById('prose-plus');
+    const proseMinus = document.getElementById('prose-minus');
+    const proseWidth = document.getElementById('prose-width');
+    const proseExpand = document.getElementById('prose-width-expand');
+    const proseShrink = document.getElementById('prose-width-shrink');
+
+    if (articleContent && prosePlus && proseMinus && fontControls && proseWidth && proseExpand && proseShrink) {
+      localStorage.proseSize = localStorage.proseSize || 16;
+      localStorage.proseWidth = localStorage.proseWidth || 'expand';
+      articleContent?.style.setProperty('--psize', localStorage.proseSize);
+
+      let offsetTop = setOffset('top');
+      let offsetBottom = setOffset('bottom');
+      window.addEventListener('resize', () => {
+        offsetTop = setOffset('top');
+        offsetBottom = setOffset('bottom');
+        observer?.disconnect();
+        observer?.observe(articleContent);
+      })
+
+      const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+          fontControls?.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+          fontControls?.classList.add('opacity-0', 'pointer-events-none');
+        }
+      }, {
+        rootMargin: `-${offsetTop}px 0px -${offsetBottom}px 0px`,
+        root: null
+      });
+      observer.observe(articleContent);
+
+      function disableMinus() {
+        if (parseInt(localStorage.proseSize) <= 16) {
+          proseMinus?.setAttribute('disabled', 'true');
+          proseMinus?.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          proseMinus?.removeAttribute('disabled');
+          proseMinus?.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      }
+      function setOffset(key: 'top' | 'bottom') {
+        const offset = {
+          top: window.innerHeight * 0.97,
+          bottom: window.innerHeight * 0.01
+        }
+        return offset[key];
+      }
+      function setProseWidth() {
+        if (localStorage.proseWidth === 'expand') {
+          articleContent?.classList.add('max-w-4xl');
+          articleContent?.classList.remove('max-w-none');
+          proseExpand?.classList.remove('hidden');
+          proseShrink?.classList.add('hidden');
+        } else {
+          articleContent?.classList.remove('max-w-4xl');
+          articleContent?.classList.add('max-w-none');
+          proseExpand?.classList.add('hidden');
+          proseShrink?.classList.remove('hidden');
+        }
+      }
+      setProseWidth();
+      disableMinus();
+      prosePlus.addEventListener('click', () => {
+        localStorage.proseSize = parseInt(localStorage.proseSize) + 1;
+        articleContent?.style.setProperty('--psize', localStorage.proseSize);
+        disableMinus();
+      });
+      proseMinus.addEventListener('click', () => {
+        if (localStorage.proseSize <= 16) return;
+        localStorage.proseSize = parseInt(localStorage.proseSize) - 1;
+        articleContent?.style.setProperty('--psize', localStorage.proseSize);
+        disableMinus();
+      });
+      proseWidth.addEventListener('click', () => {
+        if (localStorage.proseWidth === 'expand') {
+          localStorage.proseWidth = 'shrink';
+        } else {
+          localStorage.proseWidth = 'expand';
+        }
+        setProseWidth();
+      });
+    }
+  });
+</script>

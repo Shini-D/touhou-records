@@ -1,0 +1,32 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getCurrentPathname } from '@/utils/currentPathname';
+import Texts from '@/assets/common.json';
+
+type Props = {
+  classes: string;
+  hasActive?: boolean;
+}
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+const currentPage = getCurrentPathname(Astro.url.pathname as string);
+
+const menuItems = [
+  { name: texts.nav.home, path: '/', active: currentPage === '/' },
+  { name: texts.nav.blog, path: '/blog', active: currentPage === '/blog' },
+  { name: texts.nav.characters, path: '/characters', active: currentPage === '/characters' },
+];
+
+const {classes, hasActive=true} = Astro.props;
+---
+<nav class={classes}>
+  {menuItems.map((item) => (
+    <a
+      href={getRelativeLocaleUrl(Astro.currentLocale as string, item.path)}
+      class={`hover:text-primary-100 transition-colors ${item.active && hasActive ? 'text-primary-100' : ''}`}
+    >
+      {item.name}
+    </a>
+  ))}
+</nav>

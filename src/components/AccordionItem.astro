@@ -1,0 +1,24 @@
+---
+type Props = {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<li>
+  <div class="acc-trigger flex items-center justify-between gap-4 cursor-pointer bg-pearl-100 dark:bg-dark-300 dark:hover:bg-dark-200 p-4 transition-colors">
+    <h3 class="font-bold text-xl leading-tight text-night dark:text-light">{title}</h3>
+    <svg class="text-dark-700 dark:text-light size-5 shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2.25" y="9.39999" width="15.5" height="1.2" rx="0.6" fill="currentColor"/>
+      <rect class="acc-plus-vertical" x="9.40002" y="2.25" width="1.2" height="15.5" rx="0.6" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="acc-content">
+    <div class="overflow-hidden">
+      <div class="p-4 bg-pearl-200 dark:bg-dark-400 rounded-b-lg">
+        <slot/>
+      </div>
+    </div>
+  </div>
+</li>

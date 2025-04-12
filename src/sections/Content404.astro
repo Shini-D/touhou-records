@@ -1,0 +1,28 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import bgNotFound from '@/assets/404_bg.webp';
+import Phantom from '@/assets/phantom.svg';
+import Image from 'astro/components/Image.astro';
+import Texts from '@/assets/common.json';
+import Button from '@/components/Button.astro';
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+---
+
+<section class="relative h-screen text-center bg-dark-600 text-white flex items-center justify-center">
+  <Image
+    src={bgNotFound}
+    alt="background"
+    class="absolute top-0 left-0 w-full h-full object-cover"
+  />
+  <div class="absolute top-0 left-0 w-full h-full opacity-30 bg-linear-to-b from-[#E60E0E] to-priamry-100/0 to-70%" />
+  <div class="relative flex flex-col gap-6 lg:gap-8 items-center">
+    <Phantom class="w-32 lg:w-50 h-auto" />
+    <div>
+      <h1 class="text-3xl md:text-5xl font-bold leading-none mb-1 lg:mb-2">{texts.pageNotFound}</h1>
+      <p class="text-lg md:text-xl">{texts.error} 404</p>
+    </div>
+    <Button href={getRelativeLocaleUrl(Astro.currentLocale as string, '/')} color='primary'>{texts.backToHome}</Button>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import Background from '@/assets/about_background.webp';
+import Character from '@/assets/about_character.webp'
+import Texts from '@/assets/common.json';
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+---
+
+<section class="flex flex-col-reverse lg:flex-row items-center lg:items-stretch lg:mb-24 xl:mb-32 2xl:mb-36">
+  <div class="relative w-full lg:w-1/2 lg:min-h-full mb-[20%] md:mb-[15%] lg:mb-0">
+    <Image src={Background} alt="Background of a foggy water" class="w-full lg:h-full max-h-[700px] object-cover" />
+    <Image src={Character} alt="Hakurei Reimu" class="absolute top-0 right-1/5 h-[120%] w-auto" />
+  </div>
+  <div class="relative flex flex-col justify-center w-full lg:w-1/2 max-w-3xl lg:max-w-[calc(var(--container-8xl)*0.5)] pl-7 lg:pl-10 xl:pl-16 2xl:pl-20 pr-7 py-18 lg:py-12 before:w-2.5 before:h-1/2 before:bg-gradient-to-b before:from-pearl-600 dark:before:from-dark-300 before:from-60% before:to-transparent before:to-60% before:border-r before:border-pearl-600 dark:before:border-dark-300 before:absolute before:top-0 before:right-1">
+    <h2 class="font-heading font-extrabold leading-tight text-3xl sm:text-5xl text-primary-100 mb-4 lg:mb-6">{texts.aboutTitle}</h2>
+    <p class="lg:text-xl">{texts.aboutText}</p>
+  </div>
+</section>

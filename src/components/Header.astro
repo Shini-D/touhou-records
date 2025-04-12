@@ -1,0 +1,78 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import NavigationMenu from '@/components/NavigationMenu.astro';
+import LangSwitcher from '@/components/LangSwitcher.astro';
+import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
+import Logo from '@/assets/logo.svg';
+
+type Props = {
+  hasPostUrl?: {
+    en?: string;
+    es?: string;
+  };
+}
+
+const { hasPostUrl={} } = Astro.props;
+---
+<header class="bg-pearl-300/80 dark:bg-dark-700/80 backdrop-blur-md fixed w-full top-0 z-10">
+  <div class="max-w-8xl mx-auto px-7 py-3 flex justify-between items-center gap-4">
+    <a href={getRelativeLocaleUrl(Astro.currentLocale as string)}>
+      <Logo class="text-dark-700 dark:text-light"/>
+    </a>
+    <NavigationMenu classes="hidden lg:flex gap-4" />
+    <div class="flex gap-2">
+      <ThemeSwitcher />
+      <LangSwitcher classes="hidden lg:block" name="pc-lang" postUrl={hasPostUrl} />
+      <button
+        id="nav-button"
+        class="nav-button flex lg:hidden rounded"
+        type="button"
+        aria-controls="nav-mobile"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav-line -translate-y-1 transition-bar-x"></span>
+        <span class="nav-line opacity-100 transition-bar-middle"></span>
+        <span class="nav-line translate-y-1 transition-bar-x"></span>
+      </button>
+    </div>
+  </div>
+  <div id="nav-mobile" class="nav-panel">
+    <NavigationMenu classes="flex flex-col gap-4" />
+    <LangSwitcher classes="mt-8" name="mobile-lang" postUrl={hasPostUrl} />
+  </div>
+</header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const navButton = document.getElementById('nav-button');
+    const navMobile = document.getElementById('nav-mobile');
+
+    if (navButton && navMobile) {
+      function handleNavButton() {
+        const expanded = navButton?.getAttribute('aria-expanded') === 'true';
+        navButton?.setAttribute('aria-expanded', (!expanded).toString());
+        navButton?.classList.toggle('active');
+        navMobile?.classList.toggle('active');
+      }
+      function handleClosePanel(){
+        navButton?.setAttribute('aria-expanded', 'false');
+        navButton?.classList.remove('active');
+        navMobile?.classList.remove('active');
+      }
+      navButton.addEventListener('click', handleNavButton);
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 1088) handleClosePanel();
+      });
+      window.addEventListener('click', (event) => {
+        const target = event.target as Node;
+        if (!navButton?.contains(target) && !navMobile?.contains(target)) {
+          handleClosePanel();
+        }
+      });
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') handleClosePanel();
+      });
+    }
+  });
+</script>

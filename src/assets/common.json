@@ -1,0 +1,68 @@
+{
+  "en": {
+    "meta": {
+      "title": "Touhou Records",
+      "description": "A catalog of the Touhou Project games and characters.",
+      "keywords": "Touhou, Touhou Project, ZUN, Gensokyo, games, characters, bullet hell"
+    },
+    "nav": {
+      "home": "Home",
+      "games": "Games",
+      "characters": "Characters",
+      "blog": "Blog"
+    },
+    "heroTitle": "Records of the Land of the Gods",
+    "heroSubtitle": "A catalog of the Touhou Project games",
+    "aboutTitle": "About Touhou",
+    "aboutText": "The Touhou Project is a series of bullet-hell shoot 'em up games by Team Shanghai Alice, led by ZUN. Set in Gensokyo, it features shrine maiden Hakurei Reimu and magician Kirisame Marisa battling intricate projectile patterns. Known for its challenge, rich lore, and music, Touhou has inspired a vast fan community and countless fan works.",
+    "characters": "Characters",
+    "seeAll": "See all",
+    "sitemap": "Sitemap",
+    "latestPosts": "Latest posts",
+    "credits": "Credits",
+    "siteImages": "Site images",
+    "siteImagesText": "A list with the images use in this site and it's respective artist",
+    "blogTitle": "Community news",
+    "blogSubtitle": "Know the latest news of the Touhou franchise",
+    "back": "Back",
+    "relatedNews": "Related news",
+    "pageConstruction": "Page in construction",
+    "pageNotFound": "Page not found!",
+    "error": "Error",
+    "backToHome": "Back to home",
+    "originalImage": "Original image"
+  },
+  "es": {
+    "meta": {
+      "title": "Touhou Records",
+      "description": "Un catálogo de los juegos y personajes del Proyecto Touhou.",
+      "keywords": "Touhou, Proyecto Touhou, ZUN, Gensokyo, juegos, personajes, bullet hell"
+    },
+    "nav": {
+      "home": "Inicio",
+      "games": "Juegos",
+      "characters": "Personajes",
+      "blog": "Blog"
+    },
+    "heroTitle": "Crónicas de la Tierra de los Dioses",
+    "heroSubtitle": "Un catálogo de los juegos del Proyecto Touhou",
+    "aboutTitle": "Acerca de Touhou",
+    "aboutText": "El Proyecto Touhou es una serie de juegos de disparos de tipo bullet-hell creados por Team Shanghai Alice, liderado por ZUN. Ambientado en Gensokyo, presenta a la sacerdotisa Hakurei Reimu y a la maga Kirisame Marisa enfrentándose a intrincados patrones de proyectiles. Conocida por su desafío, rica narrativa y música, Touhou ha inspirado una vasta comunidad de fans y innumerables obras derivadas.",
+    "characters": "Personajes",
+    "seeAll": "Ver todo",
+    "sitemap": "Mapa del sitio",
+    "latestPosts": "Últimas publicaciones",
+    "credits": "Créditos",
+    "siteImages": "Imágenes del sitio",
+    "siteImagesText": "Una lista con las imágenes utilizadas en este sitio y su respectivo artista",
+    "blogTitle": "Noticias de la comunidad",
+    "blogSubtitle": "Conoce las últimas noticias de la franquicia Touhou",
+    "back": "Atrás",
+    "relatedNews": "Noticias relacionadas",
+    "pageConstruction": "Página en construcción",
+    "pageNotFound": "¡Página no encontrada!",
+    "error": "Error",
+    "backToHome": "Volver a inicio",
+    "originalImage": "Imagen original"
+  }
+}

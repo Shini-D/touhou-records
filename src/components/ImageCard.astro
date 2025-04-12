@@ -1,0 +1,32 @@
+---
+import Button from './Button.astro';
+import Texts from '@/assets/common.json';
+
+type Props = {
+  image: string;
+  artist: string;
+  pixivCode: string;
+  imageCode: string;
+}
+
+const locale = (Astro.currentLocale as "en" | "es") || "en";
+const texts = Texts[locale];
+const { image, artist, pixivCode, imageCode } = Astro.props
+---
+
+<article class="flex flex-col h-full rounded-lg lg:rounded-2xl overflow-hidden bg-pearl-100 dark:bg-dark-400 drop-shadow-md">
+  <div class="overflow-hidden">
+    <img src={image} alt={`image from ${artist}`} class="w-full aspect-video object-cover group-hover:scale-110 transition-transform" />
+  </div>
+  <footer class="p-4 md:px-6 w-full grow">
+    <p class="mb-2">{artist}</p>
+    <div class="flex gap-2">
+      <Button href={`https://www.pixiv.net/en/users/${pixivCode}`} external>
+        Pixiv
+      </Button>
+      <Button href={`https://www.pixiv.net/en/artworks/${imageCode}`} color="primary" external>
+        {texts.originalImage}
+      </Button>
+    </div>
+  </footer>
+</article>

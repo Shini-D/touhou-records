@@ -1,0 +1,19 @@
+---
+type Props = {
+  href: string;
+  color?: 'neutral' | 'primary';
+  external?: boolean;
+}
+
+const { href, color='neutral', external=false } = Astro.props
+---
+<a
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  href={href}
+  class={`inline-flex items-center justify-center rounded px-4 py-2 transition-colors
+    ${color === 'neutral' && 'bg-pearl-600 hover:bg-pearl-500 dark:bg-dark-300 dark:hover:bg-dark-200'}
+    ${color === 'primary' && 'bg-primary-100 hover:bg-primary-50 text-white'}`}
+>
+  <slot />
+</a>
