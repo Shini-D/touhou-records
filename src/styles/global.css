@@ -66,6 +66,11 @@
   transition-timing-function: var(--default-transition-timing-function);
   transition-duration: var(--default-transition-duration);
 }
+@utility transition-char-card {
+  transition-property: background-image, height, padding-top;
+  transition-timing-function: var(--default-transition-timing-function);
+  transition-duration: var(--default-transition-duration);
+}
 
 .icon-theme-dark {
   fill: transparent;

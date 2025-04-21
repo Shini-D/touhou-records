@@ -1,10 +1,28 @@
 ---
 import Texts from '@/assets/common.json';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";
 const texts = Texts[locale];
+const chars = await getCollection('characters')
 ---
 
 <div class="max-w-8xl mx-auto px-7 py-32">
-  <h2 class="font-heading font-extrabold leading-tight text-center text-3xl sm:text-5xl text-primary-100 mb-4 lg:mb-6">{texts.nav.characters}</h2>
+  <h1 class="font-heading font-extrabold leading-tight text-center text-3xl sm:text-5xl text-primary-100 mb-6 lg:mb-12">{texts.nav.characters}</h1>
+  <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+    {chars.map(char => (
+      <li>
+        <a class="group block relative overflow-hidden rounded-lg lg:rounded-2xl" href={getRelativeLocaleUrl(Astro.currentLocale as string, `/characters/${char.data.slug}`)} style={`aspect-ratio:${char.data.cover.width}/${char.data.cover.height}`}>
+          <img src={char.data.cover.src} alt={char.data.name} class="w-full h-full object-cover group-hover:scale-125 transition-transform duration-300" transition:name={`${char.data.slug}-cover`} />
+          <div class="absolute left-0 bottom-0 h-1/5 w-full px-4 pb-4 pt-8 bg-gradient-to-t from-black/50 from-60% to-black/0 flex justify-center items-center group-hover:from-black/70 group-hover:to-black/70 group-hover:h-full group-hover:pt-4 transition-char-card duration-300">
+            <h2 class="text-white text-center text-xl sm:text-2xl lg:text-3xl leading-tight" transition:name={char.data.slug}>
+              {char.data.name}
+            </h2>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
 </div>

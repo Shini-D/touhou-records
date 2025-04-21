@@ -1,11 +1,84 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import ArrowPrev from '@/assets/arrow_prev.svg';
+import ArrowNext from '@/assets/arrow_next.svg';
+import ArrowMore from '@/assets/arrow_topRight.svg';
 import Texts from '@/assets/common.json';
+import 'swiper/css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";
 const texts = Texts[locale];
+
+const chars = await getCollection('characters')
+const sliderChars = chars.slice(0,5)
 ---
-<section>
+
+<section class="overflow-x-hidden overflow-y-auto pb-24 xl:pb-32 2xl:pb-36">
   <div class="relative max-w-8xl mx-auto px-7">
-    <h2 class="font-heading font-extrabold leading-tight text-3xl sm:text-5xl text-primary-100">{texts.characters}</h2>
+    <div class="flex gap-6 items-center mb-6">
+      <h2 class="font-heading font-extrabold leading-tight text-3xl sm:text-5xl text-primary-100">{texts.characters}</h2>
+      <div class="flex gap-2">
+        <button class="s-button swiper-button-prev"><ArrowPrev /></button>
+        <button class="s-button swiper-button-next"><ArrowNext /></button>
+      </div>
+    </div>
+    <div id="character-slider" class="swiper overflow-visible!">
+      <ul class="swiper-wrapper">
+        {sliderChars.map(char => (
+          <li class="swiper-slide aspect-[3/4] overflow-hidden rounded-2xl">
+            <a href={getRelativeLocaleUrl(Astro.currentLocale as string, `/characters/${char.data.slug}`)} class="relative block h-full group">
+              <Image src={char.data.cover} alt={char.data.name} class="w-full h-full object-cover group-hover:scale-125 transition-transform duration-300" transition:name={`${char.data.slug}-cover`} />
+              <div class="absolute left-0 bottom-0 h-1/5 w-full px-4 pb-4 pt-8 bg-gradient-to-t from-black/50 from-60% to-black/0 flex justify-center items-center group-hover:from-black/70 group-hover:to-black/70 group-hover:h-full group-hover:pt-4 transition-char-card duration-300">
+                <h3 class="text-white text-center lg:text-2xl" transition:name={char.data.slug}>
+                  {char.data.name}
+                </h3>
+              </div>
+            </a>
+          </li>
+        ))}
+        <li class="swiper-slide aspect-[3/4] overflow-hidden rounded-2xl">
+          <a href={getRelativeLocaleUrl(Astro.currentLocale as string, '/characters')} class="flex flex-col gap-2 h-full p-2 justify-center items-center text-center uppercase text-2xl bg-pearl-100 dark:bg-dark-400 hover:text-black hover:bg-white dark:hover:text-light dark:hover:bg-dark-300 transition-colors">
+            <ArrowMore class="size-20" />
+            {texts.seeAll}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>
+
+<style>
+  .swiper-button-disabled{ opacity: 0.5 }
+  .s-button:not(.swiper-button-disabled){ cursor: pointer }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation } from 'swiper/modules';
+  document.addEventListener("astro:page-load", () => {
+    const charSlider = new Swiper('#character-slider', {
+      modules: [Navigation],
+      speed: 400,
+      spaceBetween: 20,
+      slidesPerView: 1,
+      navigation: {
+        enabled: true,
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        460: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 3,
+        },
+        1088: {
+          slidesPerView: 4,
+        },
+      }
+    })
+  })
+</script>

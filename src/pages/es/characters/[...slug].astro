@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutInner from "@/layouts/LayoutInner.astro";
+import CharacterDetails from '@/sections/CharacterDetails.astro';
+
+export async function getStaticPaths() {
+  const chars = await getCollection('characters');
+  return chars.map((char) => ({
+    params: { slug: char.data.slug },
+    props: { char },
+  }));
+}
+
+const { char } = Astro.props;
+---
+
+<LayoutInner title={char.data.name} ogImage={char.data.opengraph}>
+  <CharacterDetails char={char} />
+</LayoutInner>

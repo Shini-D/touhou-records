@@ -18,4 +18,16 @@ const posts = defineCollection({
     }),
 });
 
-export const collections = { posts };
+const characters = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/characters" }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      slug: z.string(),
+      cover: image(),
+      opengraph: z.string(),
+      language: z.enum(["es", "en"]),
+    }),
+});
+
+export const collections = { posts, characters };
