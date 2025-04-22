@@ -18,10 +18,6 @@ export default defineConfig({
     defaultLocale: "en",
   },
 
-  experimental: {
-    svg: true,
-  },
-
   integrations: [
     sitemap({
       i18n: {

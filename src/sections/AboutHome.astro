@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Background from '@/assets/about_background.webp';
 import Character from '@/assets/about_character.webp'
-import Texts from '@/assets/common.json';
+import * as Texts from '@/assets/common.json';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";
 const texts = Texts[locale];

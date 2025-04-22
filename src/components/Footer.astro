@@ -4,7 +4,7 @@ import Logo from '@/assets/logo.svg';
 import NavigationMenu from '@/components/NavigationMenu.astro';
 import AccordionItem from '@/components/AccordionItem.astro';
 import {SOCIAL} from '@/consts/social';
-import Texts from '@/assets/common.json';
+import * as Texts from '@/assets/common.json';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";
 const texts = Texts[locale];

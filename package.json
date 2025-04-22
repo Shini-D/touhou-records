@@ -13,7 +13,7 @@
     "@fontsource-variable/anybody": "^5.2.5",
     "@fontsource-variable/geologica": "^5.2.5",
     "@tailwindcss/vite": "^4.0.17",
-    "astro": "^5.5.5",
+    "astro": "^5.7.4",
     "swiper": "^11.2.6",
     "tailwindcss": "^4.0.17"
   },

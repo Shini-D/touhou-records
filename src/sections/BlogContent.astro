@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Texts from '@/assets/common.json';
+import * as Texts from '@/assets/common.json';
 import BlogCard from '@/components/BlogCard.astro';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";

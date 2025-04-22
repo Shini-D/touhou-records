@@ -2,8 +2,8 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import bgNotFound from '@/assets/404_bg.webp';
 import Phantom from '@/assets/phantom.svg';
-import Image from 'astro/components/Image.astro';
-import Texts from '@/assets/common.json';
+import { Image } from 'astro:assets';
+import * as Texts from '@/assets/common.json';
 import Button from '@/components/Button.astro';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";

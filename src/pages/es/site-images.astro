@@ -1,7 +1,7 @@
 ---
 import LayoutInner from "@/layouts/LayoutInner.astro";
 import ImagesContent from "@/sections/ImagesContent.astro";
-import Texts from '@/assets/common.json';
+import * as Texts from '@/assets/common.json';
 
 const locale = (Astro.currentLocale as "en" | "es") || "en";
 const texts = Texts[locale];
