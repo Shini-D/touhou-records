@@ -1,6 +1,6 @@
 ---
 name: Daiyosei
-slug: daiyosei
+url: daiyosei
 cover: "@/assets/characters/daiyosei.webp"
 opengraph: /daiyosei-og.jpg
 language: es

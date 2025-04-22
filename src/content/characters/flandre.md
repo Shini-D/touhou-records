@@ -1,6 +1,6 @@
 ---
 name: Flandre Scarlet
-slug: flandre-scarlet
+url: flandre-scarlet
 cover: "@/assets/characters/flandre.webp"
 opengraph: /flandre-og.jpg
 language: en

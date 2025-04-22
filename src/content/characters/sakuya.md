@@ -1,6 +1,6 @@
 ---
 name: Izayoi Sakuya
-slug: izayoi-sakuya
+url: izayoi-sakuya
 cover: "@/assets/characters/sakuya.webp"
 opengraph: /sakuya-og.jpg
 language: en

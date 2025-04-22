@@ -1,6 +1,6 @@
 ---
 name: Hong Meiling
-slug: homg-meiling
+url: homg-meiling
 cover: "@/assets/characters/meiling.webp"
 opengraph: /meiling-og.jpg
 language: es

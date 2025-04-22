@@ -1,6 +1,6 @@
 ---
 name: Kirisame Marisa
-slug: marisa-kirisame
+url: kirisame-marisa
 cover: "@/assets/characters/marisa.webp"
 opengraph: /marisa-og.jpg
 language: es

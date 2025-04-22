@@ -23,7 +23,7 @@ const characters = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
-      slug: z.string(),
+      url: z.string(),
       cover: image(),
       opengraph: z.string(),
       language: z.enum(["es", "en"]),

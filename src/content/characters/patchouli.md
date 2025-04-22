@@ -1,6 +1,6 @@
 ---
 name: Patchouli Knowledge
-slug: patchouli-knowledge
+url: patchouli-knowledge
 cover: "@/assets/characters/patchouli.webp"
 opengraph: /patchouli-og.jpg
 language: en

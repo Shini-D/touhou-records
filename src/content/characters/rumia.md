@@ -1,6 +1,6 @@
 ---
 name: Rumia
-slug: rumia
+url: rumia
 cover: "@/assets/characters/rumia.webp"
 opengraph: /rumia-og.jpg
 language: en

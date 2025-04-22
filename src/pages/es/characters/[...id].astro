@@ -4,9 +4,9 @@ import LayoutInner from "@/layouts/LayoutInner.astro";
 import CharacterDetails from '@/sections/CharacterDetails.astro';
 
 export async function getStaticPaths() {
-  const chars = await getCollection('characters');
+  const chars = await getCollection('characters', ({ data }) => data.language === 'es');
   return chars.map((char) => ({
-    params: { slug: char.data.slug },
+    params: { id: char.data.url },
     props: { char },
   }));
 }

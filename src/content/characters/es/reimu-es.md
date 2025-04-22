@@ -1,6 +1,6 @@
 ---
 name: Hakurei Reimu
-slug: reimu-hakurei
+url: hakurei-reimu
 cover: "@/assets/characters/reimu.webp"
 opengraph: /reimu-og.jpg
 language: es

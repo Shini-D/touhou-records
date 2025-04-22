@@ -1,6 +1,6 @@
 ---
 name: Koakuma
-slug: koakuma
+url: koakuma
 cover: "@/assets/characters/koakuma.webp"
 opengraph: /koakuma-og.jpg
 language: es

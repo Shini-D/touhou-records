@@ -28,10 +28,10 @@ const sliderChars = chars.slice(0,5)
       <ul class="swiper-wrapper">
         {sliderChars.map(char => (
           <li class="swiper-slide aspect-[3/4] overflow-hidden rounded-2xl">
-            <a href={getRelativeLocaleUrl(Astro.currentLocale as string, `/characters/${char.data.slug}`)} class="relative block h-full group">
-              <Image src={char.data.cover} alt={char.data.name} class="w-full h-full object-cover group-hover:scale-125 transition-transform duration-300" transition:name={`${char.data.slug}-cover`} />
+            <a href={getRelativeLocaleUrl(Astro.currentLocale as string, `/characters/${char.data.url}`)} class="relative block h-full group">
+              <Image src={char.data.cover} alt={char.data.name} class="w-full h-full object-cover group-hover:scale-125 transition-transform duration-300" transition:name={`${char.data.url}-cover`} />
               <div class="absolute left-0 bottom-0 h-1/5 w-full px-4 pb-4 pt-8 bg-gradient-to-t from-black/50 from-60% to-black/0 flex justify-center items-center group-hover:from-black/70 group-hover:to-black/70 group-hover:h-full group-hover:pt-4 transition-char-card duration-300">
-                <h3 class="text-white text-center lg:text-2xl" transition:name={char.data.slug}>
+                <h3 class="text-white text-center lg:text-2xl" transition:name={char.data.url}>
                   {char.data.name}
                 </h3>
               </div>

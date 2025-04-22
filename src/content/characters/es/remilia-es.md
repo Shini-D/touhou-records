@@ -1,6 +1,6 @@
 ---
 name: Remilia Scarlet
-slug: remilia-scarlet
+url: remilia-scarlet
 cover: "@/assets/characters/remilia.webp"
 opengraph: /remilia-og.jpg
 language: es

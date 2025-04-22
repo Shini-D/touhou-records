@@ -1,6 +1,6 @@
 ---
 name: Cirno
-slug: cirno
+url: cirno
 cover: "@/assets/characters/cirno.webp"
 opengraph: /cirno-og.jpg
 language: en
